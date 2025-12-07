@@ -89,6 +89,86 @@ import sys
 sys.path.append("/path/to/ue5-macro-automation/src")
 ```
 
+## Quick Start for Unreal Engine 5
+
+### 1. Install Python Dependencies into Unreal's Python
+
+Unreal Engine 5 uses its own embedded Python interpreter. You need to install the required packages into Unreal's Python environment:
+
+```bash
+# Find your Unreal Engine Python executable (Windows example)
+# Usually at: C:\Program Files\Epic Games\UE_5.3\Engine\Binaries\ThirdParty\Python3\Win64\python.exe
+
+# Install PySide6 for Qt GUI support
+"<UE_INSTALL_PATH>/Engine/Binaries/ThirdParty/Python3/Win64/python.exe" -m pip install PySide6
+
+# Install other dependencies
+"<UE_INSTALL_PATH>/Engine/Binaries/ThirdParty/Python3/Win64/python.exe" -m pip install aiohttp watchdog pydantic
+```
+
+On macOS/Linux, the Python path is typically:
+- macOS: `/Users/Shared/Epic Games/UE_5.3/Engine/Binaries/ThirdParty/Python3/Mac/bin/python3`
+- Linux: `/opt/UnrealEngine/Engine/Binaries/ThirdParty/Python3/Linux/bin/python3`
+
+### 2. Copy the Package to Your UE5 Project
+
+Copy the `src` folder to your Unreal project's Scripts directory:
+
+```bash
+# Create the Scripts directory if it doesn't exist
+mkdir -p <YourProject>/Scripts
+
+# Copy the package
+cp -r /path/to/ue5-macro-automation/src <YourProject>/Scripts/ue5_macro_automation
+```
+
+Your project structure should look like:
+```
+YourProject/
+├── Content/
+├── Scripts/
+│   └── ue5_macro_automation/
+│       ├── __init__.py
+│       ├── core/
+│       ├── macros/
+│       ├── ui/
+│       ├── templates/
+│       ├── api/
+│       └── utils/
+└── YourProject.uproject
+```
+
+### 3. Minimal Python Console Snippet
+
+Open the Unreal Editor Python console (Window > Developer Tools > Output Log, then switch to Python) and run:
+
+```python
+import sys
+sys.path.insert(0, r"<YourProject>/Scripts")
+
+import ue5_macro_automation
+from ue5_macro_automation.ui.main_panel import MacroAutomationPanel
+from ue5_macro_automation.templates.import_tree_assets import ImportTreeAssetsTemplate, TreeImportConfig
+
+panel = MacroAutomationPanel()
+panel.show()
+
+template = ImportTreeAssetsTemplate()
+config = TreeImportConfig(
+    source_directory="C:/Assets/Trees",
+    destination="/Game/Environment/Trees",
+    generate_collision=True,
+    auto_lod=True,
+    lod_count=3,
+    material_conventions={
+        "bark": "/Game/Materials/M_TreeBark",
+        "leaf": "/Game/Materials/M_TreeLeaves",
+    }
+)
+result = template.execute(config)
+print(f"Import complete: {result.success}, imported {result.imported_count} assets")
+```
+
 ## Quick Start
 
 ### Basic Usage
