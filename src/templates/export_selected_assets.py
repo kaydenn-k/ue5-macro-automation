@@ -5,7 +5,7 @@ A pre-built macro template for batch exporting selected assets with
 format options and organization.
 
 Example Usage:
-    >>> from src.templates.export_selected import ExportSelectedTemplate
+    >>> from src.templates.export_selected_assets import ExportSelectedTemplate
     >>> template = ExportSelectedTemplate()
     >>> result = template.execute(
     ...     output_folder="/path/to/export",

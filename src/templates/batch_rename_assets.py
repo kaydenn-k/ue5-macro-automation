@@ -5,7 +5,7 @@ A pre-built macro template for smart renaming of assets and actors with
 prefix/suffix patterns, numbering, and search/replace.
 
 Example Usage:
-    >>> from src.templates.batch_rename import BatchRenameTemplate
+    >>> from src.templates.batch_rename_assets import BatchRenameTemplate
     >>> template = BatchRenameTemplate()
     >>> result = template.execute(
     ...     targets=selected_assets,

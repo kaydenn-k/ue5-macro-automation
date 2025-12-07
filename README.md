@@ -479,8 +479,8 @@ ue5-macro-automation/
 │   │   ├── import_tree_assets.py
 │   │   ├── optimize_scene.py
 │   │   ├── setup_environment.py
-│   │   ├── batch_rename.py
-│   │   └── export_selected.py
+│   │   ├── batch_rename_assets.py
+│   │   └── export_selected_assets.py
 │   ├── api/
 │   │   ├── rest_server.py
 │   │   ├── watch_folder.py

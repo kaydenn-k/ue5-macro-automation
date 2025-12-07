@@ -9,8 +9,8 @@ Contains ready-to-use macro templates for common tasks:
 - Export Selected
 """
 
-from src.templates.batch_rename import BatchRenameTemplate
-from src.templates.export_selected import ExportSelectedTemplate
+from src.templates.batch_rename_assets import BatchRenameTemplate
+from src.templates.export_selected_assets import ExportSelectedTemplate
 from src.templates.import_tree_assets import ImportTreeAssetsTemplate
 from src.templates.optimize_scene import OptimizeSceneTemplate
 from src.templates.setup_environment import SetupEnvironmentTemplate

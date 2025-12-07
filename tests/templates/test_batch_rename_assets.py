@@ -1,12 +1,12 @@
 """
-Tests for the batch_rename template module.
+Tests for the batch_rename_assets template module.
 """
 
 from unittest.mock import patch
 
 import pytest
 
-from src.templates.batch_rename import (
+from src.templates.batch_rename_assets import (
     BatchRenameTemplate,
     RenameConfig,
     RenameResult,
@@ -131,7 +131,7 @@ class TestBatchRenameTemplate:
         assert len(preview) == 3
         assert all(name.startswith("SM_") for name in preview.values())
 
-    @patch("src.templates.batch_rename.unreal")
+    @patch("src.templates.batch_rename_assets.unreal")
     def test_execute(self, mock_unreal, template):
         """Test executing the template."""
         mock_unreal.EditorAssetLibrary.rename_asset.return_value = True
