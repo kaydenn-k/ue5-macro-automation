@@ -47,10 +47,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/example/ue5-macro-automation"
-Documentation = "https://github.com/example/ue5-macro-automation#readme"
-Repository = "https://github.com/example/ue5-macro-automation"
-Issues = "https://github.com/example/ue5-macro-automation/issues"
+Homepage = "https://github.com/kaydenn-k/ue5-macro-automation"
+Documentation = "https://github.com/kaydenn-k/ue5-macro-automation#readme"
+Repository = "https://github.com/kaydenn-k/ue5-macro-automation"
+Issues = "https://github.com/kaydenn-k/ue5-macro-automation/issues"
 
 [project.scripts]
 ue5-macro = "src.main:main"

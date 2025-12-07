@@ -41,18 +41,50 @@ A comprehensive Python-based macro automation system for Unreal Engine 5 that en
 
 ## Requirements
 
-- Unreal Engine 5.3+
+- Unreal Engine 5.3+ (tested and expected to work on 5.6/5.7)
 - Python 3.9+
 - PySide6 (Qt for Python)
 - aiohttp (for REST API)
 - watchdog (for folder monitoring)
+
+## Engine Version Support
+
+This macro system is designed against Unreal Engine 5.3+ and uses core editor scripting APIs that have been stable across UE 5.0–5.7. The system relies on the following Unreal Python modules:
+
+**Core Editor Libraries:**
+- `unreal.EditorLevelLibrary` - Level actor management, spawning, selection, lighting builds
+- `unreal.EditorAssetLibrary` - Asset operations (rename, delete, duplicate, save, list)
+- `unreal.EditorUtilityLibrary` - Selection and content browser utilities
+- `unreal.EditorLoadingAndSavingUtils` - Map loading and package saving
+
+**Asset Tools:**
+- `unreal.AssetToolsHelpers` - Asset import/export operations
+- `unreal.AssetRegistryHelpers` - Asset registry queries
+- `unreal.StaticMeshEditorSubsystem` - Collision and mesh editing
+
+**Types and Enums:**
+- Core types: `Vector`, `Rotator`, `LinearColor`, `StaticMesh`, `Texture2D`
+- Actor types: `DirectionalLight`, `PointLight`, `SpotLight`, `PostProcessVolume`, `ExponentialHeightFog`
+- Enums: `LightingBuildQuality`, `CollisionTraceFlag`, `ScriptingCollisionShapeType`, `AttachmentRule`
+
+These APIs are part of the "Editor Scripting Utilities" plugin and have remained stable across UE 5.x releases.
+
+**Required Plugins (must be enabled in your project):**
+- Editor Scripting Utilities
+- Python Editor Script Plugin
+
+**Caveats for UE 5.6/5.7:**
+- Static mesh and collision operations require the editor to be fully initialized with a level loaded
+- `GameUserSettings` quality changes may only affect PIE sessions, not editor viewports
+- Lighting build behavior depends on your project's lighting system (Lumen vs baked)
+- In World Partition projects, `get_all_level_actors()` behavior depends on loaded cells/layers
 
 ## Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/ue5-macro-automation.git
+git clone https://github.com/kaydenn-k/ue5-macro-automation.git
 cd ue5-macro-automation
 ```
 
@@ -93,22 +125,29 @@ sys.path.append("/path/to/ue5-macro-automation/src")
 
 ### 1. Install Python Dependencies into Unreal's Python
 
-Unreal Engine 5 uses its own embedded Python interpreter. You need to install the required packages into Unreal's Python environment:
+Unreal Engine 5 uses its own embedded Python interpreter. You need to install the required packages into Unreal's Python environment.
 
+**Important:** Replace `UE_5.x` with your installed version (e.g., `UE_5.6` or `UE_5.7`).
+
+**Windows:**
 ```bash
-# Find your Unreal Engine Python executable (Windows example)
-# Usually at: C:\Program Files\Epic Games\UE_5.3\Engine\Binaries\ThirdParty\Python3\Win64\python.exe
-
-# Install PySide6 for Qt GUI support
-"<UE_INSTALL_PATH>/Engine/Binaries/ThirdParty/Python3/Win64/python.exe" -m pip install PySide6
-
-# Install other dependencies
-"<UE_INSTALL_PATH>/Engine/Binaries/ThirdParty/Python3/Win64/python.exe" -m pip install aiohttp watchdog pydantic
+# Example for UE 5.7 (adjust version number to match your installation)
+"C:\Program Files\Epic Games\UE_5.7\Engine\Binaries\ThirdParty\Python3\Win64\python.exe" -m pip install PySide6 aiohttp watchdog pydantic
 ```
 
-On macOS/Linux, the Python path is typically:
-- macOS: `/Users/Shared/Epic Games/UE_5.3/Engine/Binaries/ThirdParty/Python3/Mac/bin/python3`
-- Linux: `/opt/UnrealEngine/Engine/Binaries/ThirdParty/Python3/Linux/bin/python3`
+**macOS:**
+```bash
+# Replace UE_5.x with your version (e.g., UE_5.6, UE_5.7)
+"/Users/Shared/Epic Games/UE_5.x/Engine/Binaries/ThirdParty/Python3/Mac/bin/python3" -m pip install PySide6 aiohttp watchdog pydantic
+```
+
+**Linux:**
+```bash
+# Replace UE_5.x with your version (e.g., UE_5.6, UE_5.7)
+"/opt/UnrealEngine/UE_5.x/Engine/Binaries/ThirdParty/Python3/Linux/bin/python3" -m pip install PySide6 aiohttp watchdog pydantic
+```
+
+**Note:** The exact path may vary based on your installation. Check your Epic Games Launcher or installation directory to find the correct path.
 
 ### 2. Copy the Package to Your UE5 Project
 
